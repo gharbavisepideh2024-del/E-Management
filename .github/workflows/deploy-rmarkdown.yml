@@ -1,4 +1,4 @@
-name: Render and Deploy R Markdown
+name: Render R Markdown to docs
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,9 +35,3 @@ jobs:
           R -e 'rmarkdown::render("projects.Rmd", output_dir = "docs")'
           R -e 'rmarkdown::render("about.Rmd", output_dir = "docs")'
           R -e 'rmarkdown::render("team.Rmd", output_dir = "docs")'
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
