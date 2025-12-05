@@ -19,9 +19,15 @@ jobs:
       - name: Install Pandoc
         uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
-          R -e 'install.packages("rmarkdown")'
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
+
+      - name: Install R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: rmarkdown
 
       - name: Render all R Markdown files
         run: |
